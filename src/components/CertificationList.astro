@@ -1,0 +1,52 @@
+---
+import { certifications } from '../data/certifications';
+---
+
+<ul class="certs">
+	{
+		certifications.map((c) => (
+			<li>
+				<div>
+					<strong>{c.name}</strong>
+					<span class="issuer">{c.issuer}</span>
+				</div>
+				<div class="right">
+					<span class="date">{c.date}</span>
+					{c.credentialUrl && (
+						<a href={c.credentialUrl} target="_blank" rel="noopener noreferrer">
+							Verify ↗
+						</a>
+					)}
+				</div>
+			</li>
+		))
+	}
+</ul>
+<style>
+	.certs {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	.certs li {
+		display: flex;
+		justify-content: space-between;
+		gap: 1em;
+		flex-wrap: wrap;
+		padding: 0.6em 0;
+		border-bottom: 1px solid rgb(var(--gray-light));
+	}
+	.issuer {
+		display: block;
+		color: rgb(var(--gray));
+		font-size: 0.85em;
+	}
+	.right {
+		text-align: right;
+		font-size: 0.85em;
+	}
+	.date {
+		display: block;
+		color: rgb(var(--gray));
+	}
+</style>

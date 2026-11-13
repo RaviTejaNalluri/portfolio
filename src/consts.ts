@@ -12,7 +12,7 @@ export const AUTHOR = {
 
 // Leave a link as '' to hide it.
 export const SOCIALS = {
-	github: 'https://github.com/', // TODO: your GitHub profile
-	linkedin: 'https://www.linkedin.com/in/', // TODO: your LinkedIn profile
+	github: 'https://github.com/RaviTejaNalluri',
+	linkedin: '', // hidden
 	x: '',
 };
