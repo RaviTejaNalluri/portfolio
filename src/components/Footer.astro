@@ -1,0 +1,26 @@
+---
+import { AUTHOR } from '../consts';
+import SocialLinks from './SocialLinks.astro';
+const today = new Date();
+---
+
+<footer>
+	<div class="links"><SocialLinks /></div>
+	&copy; {today.getFullYear()} {AUTHOR.name} · <a href="/rss.xml">RSS</a>
+</footer>
+<style>
+	footer {
+		padding: 2em 1em 4em 1em;
+		background: linear-gradient(var(--gray-gradient)) no-repeat;
+		color: rgb(var(--gray));
+		text-align: center;
+	}
+	.links {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 0.75em;
+	}
+	footer a {
+		color: rgb(var(--gray));
+	}
+</style>

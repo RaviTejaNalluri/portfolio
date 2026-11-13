@@ -1,0 +1,112 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { AUTHOR, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { projects } from '../data/projects';
+
+const posts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
+const featured = projects.filter((p) => p.featured);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="hero">
+				<h1>Hi, I'm {AUTHOR.name} 👋</h1>
+				<p class="role">{AUTHOR.role}{AUTHOR.location && ` · ${AUTHOR.location}`}</p>
+				<p>
+					I build software and write about what I learn. This is where I share my projects,
+					notes, and ideas.
+				</p>
+				<p class="cta">
+					<a class="btn" href="/projects">See my work</a>
+					<a class="btn secondary" href="/blog">Read the blog</a>
+				</p>
+			</section>
+
+			<section>
+				<h2>Featured projects</h2>
+				<div class="grid">{featured.map((project) => <ProjectCard project={project} />)}</div>
+				<p><a href="/projects">All projects →</a></p>
+			</section>
+
+			<section>
+				<h2>Latest posts</h2>
+				<ul class="posts">
+					{
+						posts.map((post) => (
+							<li>
+								<FormattedDate date={post.data.pubDate} />
+								<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+							</li>
+						))
+					}
+				</ul>
+				<p><a href="/blog">All posts →</a></p>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+<style>
+	section {
+		margin-bottom: 3em;
+	}
+	h2 {
+		font-size: 1.5em;
+	}
+	.hero h1 {
+		font-size: 2.5em;
+		margin-bottom: 0.1em;
+	}
+	.role {
+		color: rgb(var(--gray));
+		margin-top: 0;
+	}
+	.cta {
+		display: flex;
+		gap: 1em;
+		flex-wrap: wrap;
+	}
+	.btn {
+		background: var(--accent);
+		color: white;
+		padding: 0.4em 1.1em;
+		border-radius: 8px;
+		text-decoration: none;
+	}
+	.btn.secondary {
+		background: white;
+		color: var(--accent);
+		border: 1px solid var(--accent);
+	}
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: 1em;
+	}
+	.posts {
+		list-style: none;
+		padding: 0;
+	}
+	.posts li {
+		display: flex;
+		gap: 1em;
+		flex-wrap: wrap;
+	}
+	.posts time {
+		color: rgb(var(--gray));
+		min-width: 8em;
+	}
+</style>
