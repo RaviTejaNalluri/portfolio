@@ -5,7 +5,7 @@ export const SITE_DESCRIPTION = 'Portfolio and blog of Raviteja: projects, notes
 
 export const AUTHOR = {
 	name: 'Ravi Teja',
-	role: 'Software Developer', // TODO: your role / headline
+	role: 'Software Development Engineer',
 	location: '', // e.g. 'Hyderabad, India'
 	email: '', // e.g. 'you@example.com' (leave empty to hide)
 };

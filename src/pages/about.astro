@@ -5,6 +5,39 @@ import Header from '../components/Header.astro';
 import CertificationList from '../components/CertificationList.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 import { AUTHOR, SITE_TITLE } from '../consts';
+
+// Edit your skills here. Add or remove groups and items freely.
+const skills = [
+	{ group: 'Languages', items: ['Python', 'Java', 'Go', 'Bash'] },
+	{ group: 'Cloud & Containers', items: ['AWS', 'Azure', 'Docker', 'Kubernetes'] },
+	{ group: 'Kubernetes Ecosystem', items: ['Kubebuilder', 'Custom Controllers & Operators', 'Helm'] },
+	{ group: 'Infrastructure as Code', items: ['Terraform'] },
+	{ group: 'CI/CD', items: ['CI/CD Pipelines', 'Git'] },
+	{ group: 'Streaming & Data', items: ['Kafka'] },
+	{ group: 'Observability', items: ['Prometheus', 'Grafana'] },
+	{
+		group: 'SRE',
+		items: ['SLOs / SLIs', 'Monitoring & Alerting', 'Incident Response', 'On-call', 'Reliability Automation'],
+	},
+	{ group: 'AI / ML', items: ['LLMs', 'Generative AI Applications', 'MLOps'] },
+	{ group: 'Tools', items: ['Linux'] },
+];
+
+// Edit your experience here, newest first.
+const experience = [
+	{
+		role: 'Software Development Engineer',
+		company: 'Amazon Web Services',
+		dates: '2024 – Present',
+		summary: '', // optional one-line description
+	},
+	{
+		role: 'Infrastructure', // TODO: your job title
+		company: 'BroadPeak Partners',
+		dates: '2024 – Present',
+		summary: 'Building infrastructure.', // TODO: what you did
+	},
+];
 ---
 
 <!doctype html>
@@ -16,22 +49,51 @@ import { AUTHOR, SITE_TITLE } from '../consts';
 		<Header />
 		<main>
 			<h1>About me</h1>
-			<!-- TODO: Replace with your own story -->
 			<p>
-				I'm {AUTHOR.name}, a {AUTHOR.role.toLowerCase()}. I have experience building large-scale backedn systems, distributed infrastructure,
-				production automation, data platforms. I work extensively with building Cloud Infra, LLMs and GenAI based applications, Databases, Docker, Kuberenetes
-							</p>
+				I'm {AUTHOR.name}, a {AUTHOR.role.toLowerCase()}. I build large-scale backend systems,
+				distributed infrastructure, production automation, and data platforms.
+			</p>
+			<p>
+				I work extensively on cloud infrastructure, LLM and generative AI applications, databases,
+				and containerized workloads with Docker and Kubernetes.
+			</p>
+
 			<h2>Skills</h2>
-			<ul>
-				<li><strong>Languages:</strong> JavaScript, TypeScript, Python</li>
-				<li><strong>Frameworks:</strong> React, Node.js</li>
-				<li><strong>Tools:</strong> Git, Docker, AWS</li>
-			</ul>
+			<dl class="skills">
+				{
+					skills.map((s) => (
+						<div class="skill-group">
+							<dt>{s.group}</dt>
+							<dd>
+								<ul class="tags">
+									{s.items.map((item) => (
+										<li>{item}</li>
+									))}
+								</ul>
+							</dd>
+						</div>
+					))
+				}
+			</dl>
+
 			<h2>Experience</h2>
-			<ul>
-				<li><strong>Software Development Engineer</strong> Amazon Web Services (2024–present)</li>
-				<li><strong>Building infrastructure</strong> BroadPeak Partners (2024–present): what you did</li>
+			<ul class="experience">
+				{
+					experience.map((job) => (
+						<li>
+							<div class="job-head">
+								<div>
+									<strong>{job.role}</strong>
+									<span class="company">{job.company}</span>
+								</div>
+								<span class="dates">{job.dates}</span>
+							</div>
+							{job.summary && <p>{job.summary}</p>}
+						</li>
+					))
+				}
 			</ul>
+
 			<h2>Certifications</h2>
 			<CertificationList />
 			<h2>Get in touch</h2>
@@ -46,5 +108,68 @@ import { AUTHOR, SITE_TITLE } from '../consts';
 	h2 {
 		font-size: 1.4em;
 		margin-top: 1.5em;
+	}
+	.skills {
+		margin: 0;
+	}
+	.skill-group {
+		display: grid;
+		grid-template-columns: 11em 1fr;
+		gap: 0.5em 1em;
+		padding: 0.5em 0;
+		border-bottom: 1px solid rgb(var(--gray-light));
+	}
+	dt {
+		font-weight: bold;
+		font-size: 0.9em;
+	}
+	dd {
+		margin: 0;
+	}
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4em;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	.tags li {
+		font-size: 0.75em;
+		background: rgb(var(--gray-light));
+		border-radius: 999px;
+		padding: 0.1em 0.8em;
+	}
+	.experience {
+		list-style: none;
+		padding: 0;
+	}
+	.experience li {
+		padding: 0.6em 0;
+		border-bottom: 1px solid rgb(var(--gray-light));
+	}
+	.job-head {
+		display: flex;
+		justify-content: space-between;
+		gap: 1em;
+		flex-wrap: wrap;
+	}
+	.company {
+		display: block;
+		color: rgb(var(--gray));
+		font-size: 0.85em;
+	}
+	.dates {
+		color: rgb(var(--gray));
+		font-size: 0.85em;
+	}
+	.experience p {
+		margin: 0.3em 0 0;
+		font-size: 0.9em;
+	}
+	@media (max-width: 720px) {
+		.skill-group {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>
