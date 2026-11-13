@@ -11,7 +11,7 @@ import { certifications } from '../data/certifications';
 					<span class="issuer">{c.issuer}</span>
 				</div>
 				<div class="right">
-					<span class="date">{c.date}</span>
+					{c.date && <span class="date">{c.date}</span>}
 					{c.credentialUrl && (
 						<a href={c.credentialUrl} target="_blank" rel="noopener noreferrer">
 							Verify ↗
